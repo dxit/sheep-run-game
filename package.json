@@ -1,0 +1,21 @@
+{
+  "name": "sheep-run",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sheep Run p5.js platformer converted to TypeScript",
+  "scripts": {
+    "dev": "vite",
+    "serve": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/p5": "^1.7.6",
+    "typescript": "^5.8.2",
+    "vite": "^7.0.0",
+    "vitest": "^3.2.4"
+  }
+}

@@ -1,7 +1,67 @@
-class GameManager {
-    #lives;
+import CharacterManager from "./CharacterManager";
+import FontManager from "./FontManager";
+import LevelManager from "./LevelManager";
+import PaletteManager from "./PaletteManager";
+import SoundManager from "./SoundManager";
 
-    constructor(lives) {
+type GameDirectionKey = "isLeft" | "isRight";
+type GameLevel = LevelManager & {
+    flagpole: {
+        x: number;
+        isReached: boolean;
+    };
+};
+
+export default class GameManager {
+    #lives: number;
+    palette: PaletteManager;
+    fonts: FontManager;
+    sounds: SoundManager;
+    settings!: {
+        music: boolean;
+        bestTime: {
+            enabled: boolean;
+        };
+    };
+    position!: {
+        floor: {
+            y: number;
+            platformY: number | undefined;
+            jumpStartY: number | undefined;
+        };
+        cameraX: number;
+        cameraY: number;
+    };
+    limit!: {
+        gameMinXPos: number;
+        gameMaxXPos: number;
+        jump: number;
+        timeS: number;
+        plummet: number;
+    };
+    elements!: {
+        butterflies: number;
+        canyons: number;
+        clouds: number;
+        collectables: number;
+        enemies: number;
+        mountains: number;
+        platforms: {
+            levelOne: number;
+            levelTwo: number;
+            levelThree: number;
+        };
+        trees: number;
+    };
+    state!: {
+        gameover: boolean;
+        completed: boolean;
+        bestTimeS: number;
+    };
+    character!: CharacterManager;
+    level!: GameLevel;
+
+    constructor(lives: number) {
         this.palette = new PaletteManager();
         this.fonts = new FontManager();
         this.sounds = new SoundManager("mp3");
@@ -10,7 +70,7 @@ class GameManager {
     }
 
     // Builds settings/defaults
-    #settings() {
+    #settings(): void {
         this.settings = {
             music: true, // Start background music automatically
             bestTime: {
@@ -75,12 +135,12 @@ class GameManager {
         this.sounds.setVolume("levelCompleted", 0.3);
     }
 
-    preload() {
+    preload(): void {
         this.fonts.preload();
         this.sounds.preload();
     }
 
-    setup() {
+    setup(): void {
         this.#settings();
         this.sounds.warmup(["gameMusic"]);
         this.#startGameMusic();
@@ -96,11 +156,11 @@ class GameManager {
             this.fonts,
             this.state,
             this.settings,
-        );
+        ) as GameLevel;
         this.restart();
     }
 
-    draw() {
+    draw(): void {
         this.level.draw("pre");
 
         push();
@@ -167,13 +227,13 @@ class GameManager {
     }
 
     // Restarts the level after losing a life
-    start() {
+    start(): void {
         this.character.start();
         this.#resetCamera();
         this.level.start();
     }
     // Restarts the whole game
-    restart() {
+    restart(): void {
         this.#startGameMusic();
         this.#resetCamera();
         this.character.restart();
@@ -181,7 +241,7 @@ class GameManager {
         this.palette.use("light");
     }
     // Updates camera follow and limits
-    cameraControl() {
+    cameraControl(): void {
         translate(-this.position.cameraX, this.position.cameraY);
 
         if (!this.character.getState("isPlummeting") && !this.level.flagpole.isReached && this.#canWalk()) {
@@ -199,7 +259,7 @@ class GameManager {
         this.#controlGameLimits();
     }
     // Manages the character views based movment state
-    #handleCharacterActions() {
+    #handleCharacterActions(): void {
         //on left jumping
         if (this.isDirection("isLeft") && this.character.isFallingOrJumping()) {
             this.character.jumpingLeft(this.character.position.x, this.character.position.y);
@@ -227,7 +287,7 @@ class GameManager {
     }
 
     // Handles logic for x moving
-    checkWalking() {
+    checkWalking(): void {
         if (!this.#canWalk()) {
             this.#controlGameLimits(); // Controls game boundaries
             return;
@@ -255,7 +315,7 @@ class GameManager {
         this.#controlGameLimits();
     }
     // Handles logic for jump and fall physics
-    checkJumping() {
+    checkJumping(): void {
         // Jumping case
         const positionFloorY = this.position.floor.platformY ?? this.position.floor.y;
         const jumpStartY = this.position.floor.jumpStartY ?? positionFloorY;
@@ -297,7 +357,7 @@ class GameManager {
     }
 
     // Handles life loss and restart/gameover
-    checkDie() {
+    checkDie(): void {
         if (this.character.hasLives()) {
             this.character.lives--; // Remove live if character has still lives left
 
@@ -309,7 +369,7 @@ class GameManager {
         }
     }
     // Handles final gameover state
-    handleGameOver() {
+    handleGameOver(): void {
         // Freeze movement state and keep the character off-screen on game over
         this.character.setDirection(undefined, undefined, true);
         this.character.setState("isPlummeting", false, true); // Reset all the states
@@ -324,11 +384,11 @@ class GameManager {
         this.palette.use("dark"); // Turn the game into night
     }
     // Shortcut for direction state checks
-    isDirection(direction) {
+    isDirection(direction: GameDirectionKey): boolean {
         return this.character.getDirection(direction);
     }
     // Handles key-down input
-    keyPressed() {
+    keyPressed(): void {
         if (!this.character?.hasLives() || this.level.flagpole.isReached) {
             if (keyCode === 27) {
                 this.restart(); // Restart the game with ESC on Game over or Level Completed
@@ -372,7 +432,7 @@ class GameManager {
         }
     }
     // Handles key-up input
-    keyReleased() {
+    keyReleased(): void {
         if (this.character?.getState("isPlummeting")) {
             return;
         }
@@ -388,11 +448,11 @@ class GameManager {
         }
     }
     // Checks if movement is allowed
-    #canWalk() {
+    #canWalk(): boolean {
         return this.character.hasLives() && !this.character.getState("isPlummeting") && !this.level.flagpole.isReached;
     }
     // Clamps character and camera to world bounds
-    #controlGameLimits() {
+    #controlGameLimits(): void {
         const minX = this.limit.gameMinXPos + this.character.settings.characterWidth;
         const maxX = this.limit.gameMaxXPos - this.character.settings.characterWidth;
         const minCameraX = minX - this.character.settings.characterWidth;
@@ -404,12 +464,12 @@ class GameManager {
         this.position.cameraY = min(max(this.position.cameraY, 0), maxCameraY); // Limit the vertical camera
     }
     // Resets camera offsets
-    #resetCamera() {
+    #resetCamera(): void {
         this.position.cameraX = 0;
         this.position.cameraY = 0;
     }
     // Starts background music when enabled
-    #startGameMusic() {
+    #startGameMusic(): void {
         const gameMusic = this.sounds.get("gameMusic");
         if (!gameMusic || !gameMusic.isLoaded()) {
             return;

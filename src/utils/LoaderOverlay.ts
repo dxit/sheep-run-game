@@ -1,6 +1,6 @@
-class LoaderOverlay {
+export default class LoaderOverlay {
     // Shows the loader overlay and optional status text
-    static show(status = undefined) {
+    static show(status?: string): void {
         const loader = this.#element();
         if (!loader) {
             return;
@@ -12,7 +12,7 @@ class LoaderOverlay {
     }
 
     // Hides the loader overlay
-    static hide() {
+    static hide(): void {
         const loader = this.#element();
         if (!loader) {
             return;
@@ -21,7 +21,7 @@ class LoaderOverlay {
     }
 
     // Updates loader status text
-    static setStatus(status) {
+    static setStatus(status: string): void {
         const node = document.getElementById("loader-status");
         if (!node || typeof status !== "string") {
             return;
@@ -30,7 +30,7 @@ class LoaderOverlay {
     }
 
     // Gets loader element
-    static #element() {
+    static #element(): HTMLElement | null {
         return document.getElementById("loader");
     }
 }

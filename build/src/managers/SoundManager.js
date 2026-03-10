@@ -1,6 +1,12 @@
 class SoundManager {
+    format;
+    sounds;
+    paths;
+    lazySounds;
+    pendingVolume;
+    pendingRate;
     // Sets up sound storage and format
-    constructor(format) {
+    constructor(format = "mp3") {
         this.format = format || "mp3";
         soundFormats(this.format);
         this.sounds = {};
@@ -20,7 +26,6 @@ class SoundManager {
         this.pendingVolume = {};
         this.pendingRate = {};
     }
-
     // Preloads only startup-critical sounds (lazy sounds are loaded later)
     preload() {
         for (const name of Object.keys(this.paths)) {
@@ -30,7 +35,6 @@ class SoundManager {
             this.#load(name);
         }
     }
-
     // Starts loading selected sounds in the background
     warmup(names = []) {
         const list = Array.isArray(names) && names.length ? names : Array.from(this.lazySounds);
@@ -38,7 +42,6 @@ class SoundManager {
             this.#load(name);
         }
     }
-
     // Gets a sound by name
     get(name) {
         if (!this.sounds[name] && this.paths[name]) {
@@ -50,7 +53,6 @@ class SoundManager {
         }
         return this.sounds[name];
     }
-
     // Sets volume
     setVolume(name, volume) {
         if (!this.paths[name]) {
@@ -67,7 +69,6 @@ class SoundManager {
             sound.setVolume(volume);
         }
     }
-
     // Sets rate
     setRate(name, rate) {
         if (!this.paths[name]) {
@@ -84,7 +85,6 @@ class SoundManager {
             sound.rate(rate);
         }
     }
-
     // Plays a sound by name
     play(name, { loop = false, overlap = false } = {}) {
         const sound = this.get(name);
@@ -99,11 +99,11 @@ class SoundManager {
         }
         if (loop) {
             sound.loop();
-        } else {
+        }
+        else {
             sound.play();
         }
     }
-
     // Stops a sound by name
     stop(name) {
         const sound = this.get(name);
@@ -115,42 +115,32 @@ class SoundManager {
         }
         sound.stop();
     }
-
     // Loads one sound and applies deferred settings once ready
     #load(name) {
         if (this.sounds[name]) {
             return this.sounds[name];
         }
-
         const path = this.paths[name];
         if (!path) {
             return undefined;
         }
-
-        const sound = loadSound(
-            path,
-            () => {
-                this.#applyPendingSettings(name);
-            },
-            () => {
-                console.warn(`Unable to load sound ${name} from ${path}`);
-            },
-        );
+        const sound = loadSound(path, () => {
+            this.#applyPendingSettings(name);
+        }, () => {
+            console.warn(`Unable to load sound ${name} from ${path}`);
+        });
         this.sounds[name] = sound;
         return sound;
     }
-
     // Applies pending volume/rate values to a loaded sound
     #applyPendingSettings(name) {
         const sound = this.sounds[name];
         if (!sound) {
             return;
         }
-
         if (this.pendingVolume[name] !== undefined) {
             sound.setVolume(this.pendingVolume[name]);
         }
-
         if (this.pendingRate[name] !== undefined) {
             sound.rate(this.pendingRate[name]);
         }

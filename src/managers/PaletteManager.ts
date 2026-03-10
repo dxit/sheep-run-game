@@ -1,4 +1,7 @@
-class PaletteManager {
+export default class PaletteManager {
+    themes: Record<string, unknown>;
+    theme: string;
+
     // Sets up theme palette data
     constructor(defaultTheme = "light") {
         this.themes = this.#buildThemes();
@@ -6,43 +9,55 @@ class PaletteManager {
     }
 
     // Switches active theme
-    use(theme) {
+    use(theme: string): void {
         if (this.themes[theme]) {
             this.theme = theme;
         }
     }
 
     // Returns active theme colors
-    get colors() {
+    get colors(): any {
         return this.themes[this.theme] || this.themes.light;
     }
 
     // Builds a p5 color from a token
-    color(token) {
+    color(token: unknown): ReturnType<typeof color> {
         if (Array.isArray(token)) {
-            return color(...token);
+            const values = token.filter((value) => Number.isFinite(value)) as number[];
+            if (values.length === 4) {
+                return color(values[0], values[1], values[2], values[3]);
+            }
+            if (values.length === 3) {
+                return color(values[0], values[1], values[2]);
+            }
+            if (values.length === 2) {
+                return color(values[0], values[1]);
+            }
+            if (values.length === 1) {
+                return color(values[0]);
+            }
         }
 
         return color(0, 0, 0);
     }
 
     // Applies the fill color
-    fill(token) {
+    fill(token: unknown): void {
         fill(this.color(token));
     }
 
     // Applies the stroke color
-    stroke(token) {
+    stroke(token: unknown): void {
         stroke(this.color(token));
     }
 
     // Applies the background color
-    background(token) {
+    background(token: unknown): void {
         background(this.color(token));
     }
 
     // Builds light and dark theme objects
-    #buildThemes() {
+    #buildThemes(): Record<string, unknown> {
         const light = {
             ui: {
                 text: {
@@ -303,4 +318,3 @@ class PaletteManager {
         };
     }
 }
-

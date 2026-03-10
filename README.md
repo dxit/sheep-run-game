@@ -21,7 +21,7 @@ _Enemy encounter with a wolf._
 - Carrots as core collectables
 - Butterfly bonuses: time butterfly (pink, `+10s`) and life butterfly (gold, `+1 life`)
 - Butterfly spawning is guaranteed every run (with platform safety fallback)
-- Consistent multi-file architecture (`entities`, `managers`, `utils`)
+- TypeScript modular architecture (`entities`, `managers`, `utils`) powered by Vite
 
 ## Controls
 
@@ -33,61 +33,27 @@ _Enemy encounter with a wolf._
 
 ## Run Locally
 
-Clone or download this project, then run any local static server from the project root.
-
-### Option 1: Node.js - `serve` (no install required)
+Clone or download this project, then use Vite from the project root.
 
 ```bash
-npx serve .
+npm install
+npm run dev
 ```
 
-Open the URL printed in the terminal (usually `http://localhost:3000`)
+Open the URL shown in terminal (usually `http://localhost:5173`).
 
-### Option 2: Python (built-in)
+### Production Build
 
 ```bash
-python3 -m http.server 8000
+npm run build
+npm run preview
 ```
 
-Open `http://localhost:8000`
-
-### Option 3: Node.js - `http-server` (no install required)
+### Run Tests
 
 ```bash
-npx http-server -p 8000
+npm run test
 ```
-
-Open `http://localhost:8000`
-
-### Option 4: Node.js - `live-server` (auto refresh on file changes)
-
-```bash
-npx live-server --port=8000
-```
-
-Open `http://localhost:8000`
-
-### Option 5: PHP built-in server
-
-```bash
-php -S localhost:8000
-```
-
-Open `http://localhost:8000`
-
-### Option 6: Ruby built-in server
-
-```bash
-ruby -run -e httpd . -p 8000
-```
-
-Open `http://localhost:8000`
-
-### Option 7: VS Code Live Server extension
-
-1. Install the `Live Server` extension.
-2. Open `index.html`.
-3. Click `Go Live`.
 
 ## Project Structure
 
@@ -100,32 +66,40 @@ Open `http://localhost:8000`
 │   └── images/
 │       ├── sheep-run-enemy-encounter.png
 │       └── sheep-run-gameplay.png
+├── public/
+│   ├── p5.min.js
+│   └── p5.sound.min.js
 ├── index.html
+├── package.json
 ├── src/
 │   ├── entities/
-│   │   ├── Enemy.js
-│   │   └── Platform.js
+│   │   ├── Enemy.ts
+│   │   └── Platform.ts
 │   ├── managers/
-│   │   ├── CharacterManager.js
-│   │   ├── FontManager.js
-│   │   ├── GameManager.js
-│   │   ├── LevelManager.js
-│   │   ├── PaletteManager.js
-│   │   └── SoundManager.js
+│   │   ├── CharacterManager.ts
+│   │   ├── FontManager.ts
+│   │   ├── GameManager.ts
+│   │   ├── LevelManager.ts
+│   │   ├── PaletteManager.ts
+│   │   └── SoundManager.ts
 │   └── utils/
-│       ├── LoaderOverlay.js
-│       └── Utility.js
-├── sketch.js
-├── p5.min.js
-├── p5.sound.min.js
+│       ├── LoaderOverlay.ts
+│       └── Utility.ts
+├── tests/
+│   └── Utility.test.ts
+├── sketch.ts
+├── tsconfig.json
+├── vite.config.ts
 └── CREDITS.md
 ```
 
 ## Tech Stack
 
-- `JavaScript (ES6+)`
+- `TypeScript`
 - `p5.js`
 - `p5.sound`
+- `Vite`
+- `Vitest`
 
 ## Credits
 
