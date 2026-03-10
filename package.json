@@ -12,6 +12,9 @@
     "url": "https://github.com/dxit/sheep-run-game/issues"
   },
   "scripts": {
+    "sync:assets": "node scripts/sync-assets.mjs",
+    "predev": "npm run sync:assets",
+    "prebuild": "npm run sync:assets",
     "dev": "vite",
     "serve": "vite",
     "build": "vite build",
