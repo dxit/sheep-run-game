@@ -52,25 +52,7 @@ npm run build
 npm run preview
 ```
 
-## Deployment
-
-This project is configured for GitHub Pages with GitHub Actions:
-
-- Workflow file: `.github/workflows/deploy-pages.yml`
-- Build output: `dist/`
-- Repository: `https://github.com/dxit/sheep-run-game`
-- Target page: `https://dxit.github.io/sheep-run-game/`
-- Vite base path is auto-resolved in CI for:
-  - `https://<user>.github.io/` (root base)
-  - `https://<user>.github.io/<repo>/` (repo base)
-
-To enable deployment in your GitHub repository:
-
-1. Open `Settings` > `Pages`.
-2. Under **Build and deployment**, choose **Source: GitHub Actions** (not **Deploy from a branch**).
-3. Push to `main` (or `master`) to trigger deployment.
-
-### Run Tests
+## Run Tests
 
 ```bash
 npm run test
