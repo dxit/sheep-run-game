@@ -6,7 +6,7 @@
     "lib": ["ES2022", "DOM"],
     "strict": false,
     "skipLibCheck": true,
-    "types": ["p5", "p5/global", "vite/client"]
+    "types": ["p5", "p5/global", "vite/client", "node"]
   },
   "include": ["sketch.ts", "src/**/*.ts", "src/types/**/*.d.ts", "tests/**/*.ts", "vite.config.ts"],
   "exclude": ["build", "dist", "node_modules"]

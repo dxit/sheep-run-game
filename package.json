@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "description": "Sheep Run p5.js platformer converted to TypeScript",
+  "homepage": "https://dxit.github.io/sheep-run-game/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dxit/sheep-run-game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dxit/sheep-run-game/issues"
+  },
   "scripts": {
     "dev": "vite",
     "serve": "vite",
@@ -13,6 +21,7 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
+    "@types/node": "^24.3.0",
     "@types/p5": "^1.7.6",
     "typescript": "^5.8.2",
     "vite": "^7.0.0",
