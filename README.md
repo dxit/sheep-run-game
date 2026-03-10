@@ -2,6 +2,12 @@
 
 A side-scrolling platform game built with `p5.js` and `p5.sound`, starring a sheep.
 
+![Sheep Run gameplay screenshot](docs/images/sheep-run-gameplay.png)
+_Gameplay overview._
+
+![Sheep Run enemy encounter screenshot](docs/images/sheep-run-enemy-encounter.png)
+_Enemy encounter with a wolf._
+
 ## Features
 
 - Scrollable world with camera follow and world bounds
@@ -27,39 +33,61 @@ A side-scrolling platform game built with `p5.js` and `p5.sound`, starring a she
 
 ## Run Locally
 
-1. Clone or download this project.
-2. Start a local server from the project root:
+Clone or download this project, then run any local static server from the project root.
+
+### Option 1: Node.js - `serve` (no install required)
+
+```bash
+npx serve .
+```
+
+Open the URL printed in the terminal (usually `http://localhost:3000`)
+
+### Option 2: Python (built-in)
 
 ```bash
 python3 -m http.server 8000
 ```
 
-3. Open: `http://localhost:8000`
+Open `http://localhost:8000`
 
-## Deploy to GitHub Pages
-
-1. Create a new repository on GitHub (for example: `sheep-run`).
-2. In this project folder, run:
+### Option 3: Node.js - `http-server` (no install required)
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/<your-username>/<your-repo>.git
-git push -u origin main
+npx http-server -p 8000
 ```
 
-3. On GitHub, open your repository settings:
-   - Go to `Settings` -> `Pages`
-   - Under `Build and deployment`, set:
-     - `Source`: `Deploy from a branch`
-     - `Branch`: `main` and `/ (root)`
-   - Save.
-4. Wait 1-3 minutes, then open:
-   - `https://<your-username>.github.io/<your-repo>/`
+Open `http://localhost:8000`
 
-Asset paths are relative, so the game works on both local servers and GitHub Pages project URLs.
+### Option 4: Node.js - `live-server` (auto refresh on file changes)
+
+```bash
+npx live-server --port=8000
+```
+
+Open `http://localhost:8000`
+
+### Option 5: PHP built-in server
+
+```bash
+php -S localhost:8000
+```
+
+Open `http://localhost:8000`
+
+### Option 6: Ruby built-in server
+
+```bash
+ruby -run -e httpd . -p 8000
+```
+
+Open `http://localhost:8000`
+
+### Option 7: VS Code Live Server extension
+
+1. Install the `Live Server` extension.
+2. Open `index.html`.
+3. Click `Go Live`.
 
 ## Project Structure
 
@@ -68,6 +96,10 @@ Asset paths are relative, so the game works on both local servers and GitHub Pag
 ├── assets/
 │   ├── fonts/
 │   └── sounds/
+├── docs/
+│   └── images/
+│       ├── sheep-run-enemy-encounter.png
+│       └── sheep-run-gameplay.png
 ├── index.html
 ├── src/
 │   ├── entities/
