@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A p5.js side-scrolling platform game starring a sheep, with wolves, carrots, and butterfly bonuses." />
+  <title>Sheep Run - p5.js Platformer</title>
+  <script defer src="p5.min.js"></script>
+  <script defer src="p5.sound.min.js"></script>
+  <script defer src="src/utils/Utility.js"></script>
+  <script defer src="src/utils/LoaderOverlay.js"></script>
+  <script defer src="src/managers/PaletteManager.js"></script>
+  <script defer src="src/managers/FontManager.js"></script>
+  <script defer src="src/managers/SoundManager.js"></script>
+  <script defer src="src/entities/Enemy.js"></script>
+  <script defer src="src/entities/Platform.js"></script>
+  <script defer src="src/managers/CharacterManager.js"></script>
+  <script defer src="src/managers/LevelManager.js"></script>
+  <script defer src="src/managers/GameManager.js"></script>
+  <script defer src="sketch.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      overflow: hidden;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 20% 20%, #1c2636 0%, #0d1117 45%, #05070a 100%);
+      color: #f3f5f7;
+      z-index: 9999;
+      transition: opacity 220ms ease;
+    }
+
+    #loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-card {
+      width: min(88vw, 420px);
+      padding: 28px 26px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      backdrop-filter: blur(2px);
+    }
+
+    .loader-title {
+      margin: 0 0 8px;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .loader-status {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .loader-spinner {
+      width: 34px;
+      height: 34px;
+      margin: 16px auto 0;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.25);
+      border-top-color: #ffffff;
+      animation: loader-spin 0.85s linear infinite;
+    }
+
+    @keyframes loader-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="loader" role="status" aria-live="polite">
+    <div class="loader-card">
+      <h1 class="loader-title">Sheep Run</h1>
+      <p id="loader-status" class="loader-status">Loading assets...</p>
+      <div class="loader-spinner" aria-hidden="true"></div>
+    </div>
+  </div>
+  <noscript>This game requires JavaScript to run.</noscript>
+</body>
+</html>
