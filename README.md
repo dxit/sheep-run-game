@@ -67,7 +67,7 @@ This project is configured for GitHub Pages with GitHub Actions:
 To enable deployment in your GitHub repository:
 
 1. Open `Settings` > `Pages`.
-2. Under **Build and deployment**, choose **Source: GitHub Actions**.
+2. Under **Build and deployment**, choose **Source: GitHub Actions** (not **Deploy from a branch**).
 3. Push to `main` (or `master`) to trigger deployment.
 
 ### Run Tests
