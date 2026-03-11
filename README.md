@@ -1,15 +1,17 @@
 # Sheep Run (p5.js Platformer)
 
+[![Deploy to GitHub Pages](https://github.com/dxit/sheep-run-game/actions/workflows/deploy-pages.yml/badge.svg?branch=main)](https://github.com/dxit/sheep-run-game/actions/workflows/deploy-pages.yml)
+[![Live Demo](https://img.shields.io/website?url=https%3A%2F%2Fdxit.github.io%2Fsheep-run-game%2F&up_message=online&down_message=offline&label=live%20demo)](https://dxit.github.io/sheep-run-game/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.x-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
+[![Vitest](https://img.shields.io/badge/Vitest-3.x-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
+[![p5.js](https://img.shields.io/badge/p5.js-creative%20coding-ED225D)](https://p5js.org/)
+
 A side-scrolling platform game built with `p5.js` and `p5.sound`, starring a sheep.
 
-Repository: https://github.com/dxit/sheep-run-game  
 Live game: https://dxit.github.io/sheep-run-game/
 
-![Sheep Run gameplay screenshot](docs/images/sheep-run-gameplay.png)
-_Gameplay overview._
-
-![Sheep Run enemy encounter screenshot](docs/images/sheep-run-enemy-encounter.png)
-_Enemy encounter with a wolf._
+![Sheep Run gameplay screenshot](docs/images/sheep-run-cover-web.png)
 
 ## Features
 
@@ -107,3 +109,11 @@ npm run test
 ## Credits
 
 - Audio credits: [CREDITS.md](CREDITS.md)
+
+## Screenshots
+
+![Sheep Run gameplay screenshot](docs/images/sheep-run-gameplay.png)
+_Gameplay overview._
+
+![Sheep Run enemy encounter screenshot](docs/images/sheep-run-enemy-encounter.png)
+_Enemy encounter with a wolf._
